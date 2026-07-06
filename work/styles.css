@@ -203,10 +203,23 @@ button:disabled {
 }
 
 .actions {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
   align-items: center;
+}
+
+.actions-title {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.primary-share {
+  color: #fff;
+  background: var(--green);
 }
 
 .message {
@@ -258,5 +271,13 @@ button:disabled {
   .copy-button,
   .share-button {
     width: 100%;
+  }
+
+  .actions {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .primary-share {
+    grid-column: 1 / -1;
   }
 }

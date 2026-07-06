@@ -133,6 +133,7 @@ function showIssuedTag(tag, postalArea, note) {
   postalPanel.hidden = false;
   actions.hidden = false;
   setMessage(note);
+  actions.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
 async function issueFromPostalArea(postalArea, note) {
