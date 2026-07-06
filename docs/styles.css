@@ -1,0 +1,262 @@
+:root {
+  color-scheme: light;
+  --ink: #15191d;
+  --muted: #606b73;
+  --line: #d8e2e0;
+  --paper: #f8fbfa;
+  --surface: rgba(255, 255, 255, 0.9);
+  --green: #16866f;
+  --green-dark: #0f5f50;
+  --coral: #ef6b5a;
+  --aqua: #d7f0eb;
+  --yellow: #f4c65f;
+  --shadow: 0 20px 70px rgba(20, 33, 37, 0.14);
+  font-family:
+    "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  color: var(--ink);
+  background:
+    linear-gradient(140deg, rgba(215, 240, 235, 0.9), rgba(248, 251, 250, 0.72)),
+    linear-gradient(35deg, rgba(244, 198, 95, 0.26), transparent 42%),
+    var(--paper);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.app-shell {
+  width: min(960px, calc(100% - 32px));
+  min-height: 100vh;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 40px;
+  align-items: center;
+  padding: 48px 0;
+}
+
+.hero {
+  display: grid;
+  gap: 18px;
+}
+
+.eyebrow {
+  width: fit-content;
+  margin: 0;
+  padding: 8px 12px;
+  border: 1px solid rgba(22, 134, 111, 0.25);
+  border-radius: 999px;
+  color: var(--green-dark);
+  background: rgba(255, 255, 255, 0.58);
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+h1 {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  letter-spacing: 0;
+}
+
+h1 span {
+  font-size: clamp(3.4rem, 9vw, 6.4rem);
+  line-height: 0.9;
+}
+
+h1 small {
+  color: var(--coral);
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  font-weight: 900;
+}
+
+.lead {
+  max-width: 29rem;
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.generator {
+  display: grid;
+  gap: 18px;
+  padding: 28px;
+  border: 1px solid rgba(216, 226, 224, 0.95);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.primary-button,
+.secondary-button,
+.copy-button,
+.share-button {
+  min-height: 52px;
+  border: 0;
+  border-radius: 8px;
+  padding: 0 18px;
+  cursor: pointer;
+  font-weight: 900;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease;
+}
+
+.primary-button {
+  width: 100%;
+  min-height: 64px;
+  color: #fff;
+  background: linear-gradient(135deg, var(--green), var(--coral));
+  box-shadow: 0 15px 32px rgba(22, 134, 111, 0.25);
+  font-size: 1.1rem;
+}
+
+.secondary-button,
+.copy-button,
+.share-button {
+  color: var(--ink);
+  background: var(--aqua);
+}
+
+.share-button {
+  min-height: 44px;
+  padding: 0 14px;
+  background: #fff;
+  border: 1px solid var(--line);
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.56;
+}
+
+.tag-output {
+  display: grid;
+  place-items: center start;
+  min-height: 104px;
+  padding: 18px;
+  border: 1px dashed var(--green);
+  border-radius: 8px;
+  color: var(--green-dark);
+  background: rgba(22, 134, 111, 0.08);
+  font-size: clamp(1rem, 2.4vw, 1.35rem);
+  font-weight: 900;
+  overflow-wrap: anywhere;
+}
+
+.tag-output span {
+  color: var(--muted);
+  font-size: 0.96rem;
+  font-weight: 700;
+}
+
+.postal-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.postal-panel[hidden],
+.actions[hidden] {
+  display: none;
+}
+
+.field span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.field input {
+  width: 100%;
+  height: 52px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0 14px;
+  color: var(--ink);
+  background: #fff;
+  outline: none;
+}
+
+.field input:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(22, 134, 111, 0.18);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.message {
+  min-height: 1.5em;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.attribution {
+  margin: -4px 0 0;
+  color: var(--muted);
+  font-size: 0.74rem;
+  line-height: 1.6;
+}
+
+.attribution a {
+  color: var(--green-dark);
+}
+
+@media (max-width: 820px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    align-items: start;
+    padding: 32px 0;
+  }
+
+  h1 span {
+    font-size: clamp(3rem, 17vw, 5.2rem);
+  }
+}
+
+@media (max-width: 560px) {
+  .app-shell {
+    width: min(100% - 20px, 960px);
+  }
+
+  .generator {
+    padding: 18px;
+  }
+
+  .postal-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .secondary-button,
+  .copy-button,
+  .share-button {
+    width: 100%;
+  }
+}
