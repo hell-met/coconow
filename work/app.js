@@ -110,7 +110,7 @@ function ensureJapan(latitude, longitude) {
 
 function showIssuedTag(tag, postalArea, note) {
   latestTag = tag;
-  latestPostText = `${tag}\n\nCOCONOW-ココナウ-`;
+  latestPostText = `${tag}\n\nCoCoNow-ココナ-`;
   tagOutput.textContent = tag;
   postalAreaInput.value = postalArea;
   postalPanel.hidden = false;
