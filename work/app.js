@@ -8,7 +8,7 @@ const tagOutput = document.querySelector("#tagOutput");
 const message = document.querySelector("#message");
 const shareButtons = document.querySelectorAll("[data-share]");
 
-const HASH_PEPPER = "COCONOW-JP-v2";
+const TAG_API_ENDPOINT = "https://coconow-tag-api.hell-m-m-m-mail.workers.dev/";
 let latestTag = "";
 let latestPostText = "";
 
@@ -50,27 +50,27 @@ function getPostalArea(value) {
   throw new Error("郵便番号は上6桁、または7桁で入力してください。");
 }
 
-function encodeBase36(bytes) {
-  return Array.from(bytes)
-    .map((byte) => byte.toString(36).padStart(2, "0"))
-    .join("")
-    .slice(0, 12)
-    .toUpperCase();
-}
-
-async function digestTagSource(source) {
-  const bytes = new TextEncoder().encode(source);
-  const hashBuffer = await crypto.subtle.digest("SHA-256", bytes);
-  return encodeBase36(new Uint8Array(hashBuffer));
-}
-
 async function buildTag(postalArea) {
-  const hourlyStamp = getHourlyStamp();
-  const encryptedLocation = await digestTagSource(
-    `${HASH_PEPPER}:${hourlyStamp}:${postalArea}`,
-  );
+  if (TAG_API_ENDPOINT.includes("YOUR-WORKER-SUBDOMAIN")) {
+    throw new Error("Cloudflare WorkerのURLを設定してください。");
+  }
 
-  return `#coconow${hourlyStamp}${encryptedLocation}`;
+  const response = await fetch(TAG_API_ENDPOINT, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      hourlyStamp: getHourlyStamp(),
+      postalArea,
+    }),
+  });
+
+  const result = await response.json().catch(() => ({}));
+
+  if (!response.ok || !result.tag) {
+    throw new Error(result.error || "タグを発行できませんでした。");
+  }
+
+  return result.tag;
 }
 
 function setMessage(text) {
