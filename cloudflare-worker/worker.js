@@ -1,14 +1,21 @@
 const DEFAULT_ALLOWED_ORIGIN = "https://hell-met.github.io";
 
+function corsHeaders(origin = DEFAULT_ALLOWED_ORIGIN) {
+  return {
+    "Access-Control-Allow-Origin": origin,
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Max-Age": "86400",
+    Vary: "Origin",
+  };
+}
+
 function json(data, status = 200, origin = DEFAULT_ALLOWED_ORIGIN) {
   return new Response(JSON.stringify(data), {
     status,
     headers: {
       "Content-Type": "application/json; charset=utf-8",
-      "Access-Control-Allow-Origin": origin,
-      "Access-Control-Allow-Methods": "POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type",
-      "Access-Control-Max-Age": "86400",
+      ...corsHeaders(origin),
     },
   });
 }
@@ -49,33 +56,36 @@ export default {
     const corsOrigin = getCorsOrigin(request, env);
 
     if (request.method === "OPTIONS") {
-      return json({}, 204, corsOrigin);
+      return new Response(null, {
+        status: 204,
+        headers: corsHeaders(corsOrigin),
+      });
     }
 
     if (request.method !== "POST") {
-      return json({ error: "POSTでリクエストしてください。" }, 405, corsOrigin);
+      return json({ error: "Use POST." }, 405, corsOrigin);
     }
 
     if (!env.COCONOW_SECRET) {
-      return json({ error: "Workerの秘密鍵が未設定です。" }, 500, corsOrigin);
+      return json({ error: "COCONOW_SECRET is not set." }, 500, corsOrigin);
     }
 
     let body;
     try {
       body = await request.json();
     } catch {
-      return json({ error: "JSONを送信してください。" }, 400, corsOrigin);
+      return json({ error: "Invalid JSON." }, 400, corsOrigin);
     }
 
     const hourlyStamp = String(body.hourlyStamp || "");
     const postalArea = String(body.postalArea || "");
 
     if (!/^\d{10}$/.test(hourlyStamp)) {
-      return json({ error: "日時の形式が正しくありません。" }, 400, corsOrigin);
+      return json({ error: "Invalid hourlyStamp." }, 400, corsOrigin);
     }
 
     if (!/^\d{6}$/.test(postalArea)) {
-      return json({ error: "郵便番号の上6桁を送信してください。" }, 400, corsOrigin);
+      return json({ error: "Invalid postalArea." }, 400, corsOrigin);
     }
 
     const encryptedLocation = await hmacSha256(
