@@ -9,28 +9,9 @@ const message = document.querySelector("#message");
 const shareButtons = document.querySelectorAll("[data-share]");
 
 const TAG_API_ENDPOINT = "https://coconow-tag-api.hell-m-m-m-mail.workers.dev";
+const SHARE_PAGE_URL = "https://hell-met.github.io/coconow/";
 let latestTag = "";
 let latestPostText = "";
-
-function getJapanTimeParts() {
-  const formatter = new Intl.DateTimeFormat("ja-JP-u-ca-gregory", {
-    timeZone: "Asia/Tokyo",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    hourCycle: "h23",
-  });
-
-  return Object.fromEntries(
-    formatter.formatToParts(new Date()).map((part) => [part.type, part.value]),
-  );
-}
-
-function getHourlyStamp() {
-  const parts = getJapanTimeParts();
-  return `${parts.year}${parts.month}${parts.day}${parts.hour}`;
-}
 
 function normalizeDigits(value) {
   return value.replace(/\D/g, "");
@@ -50,16 +31,18 @@ function getPostalArea(value) {
   throw new Error("郵便番号は上6桁、または7桁で入力してください。");
 }
 
-async function buildTag(postalArea) {
-  if (TAG_API_ENDPOINT.includes("YOUR-WORKER-SUBDOMAIN")) {
-    throw new Error("Cloudflare WorkerのURLを設定してください。");
-  }
+function setShareEnabled(enabled) {
+  copyButton.disabled = !enabled;
+  shareButtons.forEach((button) => {
+    button.disabled = !enabled;
+  });
+}
 
+async function buildTag(postalArea) {
   const response = await fetch(TAG_API_ENDPOINT, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      hourlyStamp: getHourlyStamp(),
       postalArea,
     }),
   });
@@ -131,7 +114,7 @@ function showIssuedTag(tag, postalArea, note) {
   tagOutput.textContent = tag;
   postalAreaInput.value = postalArea;
   postalPanel.hidden = false;
-  actions.hidden = false;
+  setShareEnabled(true);
   setMessage(note);
   actions.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
@@ -186,12 +169,16 @@ async function reissueTag() {
   }
 }
 
+async function writeClipboard(text, successMessage) {
+  await navigator.clipboard.writeText(text);
+  setMessage(successMessage);
+}
+
 async function copyTag() {
   if (!latestTag) return;
 
   try {
-    await navigator.clipboard.writeText(latestTag);
-    setMessage("タグをコピーしました。");
+    await writeClipboard(latestTag, "タグをコピーしました。");
   } catch {
     setMessage("コピーできませんでした。タグを選択してコピーしてください。");
   }
@@ -199,28 +186,37 @@ async function copyTag() {
 
 function openShareTarget(target) {
   const encodedText = encodeURIComponent(latestPostText);
+  const encodedUrl = encodeURIComponent(SHARE_PAGE_URL);
   const urls = {
     x: `https://twitter.com/intent/tweet?text=${encodedText}`,
     threads: `https://www.threads.net/intent/post?text=${encodedText}`,
-    bluesky: `https://bsky.app/intent/compose?text=${encodedText}`,
-    line: `https://social-plugins.line.me/lineit/share?text=${encodedText}`,
+    facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}`,
   };
 
   window.open(urls[target], "_blank", "noopener,noreferrer");
+}
+
+async function nativeShareOrCopy(messageText) {
+  if (navigator.share) {
+    await navigator.share({ text: latestPostText, url: SHARE_PAGE_URL });
+    return;
+  }
+
+  await writeClipboard(latestPostText, messageText);
 }
 
 async function sharePost(target) {
   if (!latestTag) return;
 
   try {
-    if (target === "native" && navigator.share) {
-      await navigator.share({ text: latestPostText });
+    if (target === "native") {
+      await nativeShareOrCopy("タグ付きポスト文をコピーしました。");
       return;
     }
 
-    if (target === "native") {
-      await navigator.clipboard.writeText(latestPostText);
-      setMessage("タグ付きポスト文をコピーしました。");
+    if (target === "instagram") {
+      await nativeShareOrCopy("Instagram用にタグ付き文をコピーしました。");
+      window.open("https://www.instagram.com/", "_blank", "noopener,noreferrer");
       return;
     }
 
@@ -239,3 +235,4 @@ copyButton.addEventListener("click", copyTag);
 shareButtons.forEach((button) => {
   button.addEventListener("click", () => sharePost(button.dataset.share));
 });
+setShareEnabled(false);

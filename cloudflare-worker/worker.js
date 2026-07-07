@@ -45,6 +45,22 @@ async function hmacSha256(secret, message) {
   return encodeBase36(new Uint8Array(signature));
 }
 
+function getHourlyStamp() {
+  const formatter = new Intl.DateTimeFormat("ja-JP-u-ca-gregory", {
+    timeZone: "Asia/Tokyo",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    hourCycle: "h23",
+  });
+  const parts = Object.fromEntries(
+    formatter.formatToParts(new Date()).map((part) => [part.type, part.value]),
+  );
+
+  return `${parts.year}${parts.month}${parts.day}${parts.hour}`;
+}
+
 function getCorsOrigin(request, env) {
   const requestOrigin = request.headers.get("Origin");
   const allowedOrigin = env.ALLOWED_ORIGIN || DEFAULT_ALLOWED_ORIGIN;
@@ -77,17 +93,13 @@ export default {
       return json({ error: "Invalid JSON." }, 400, corsOrigin);
     }
 
-    const hourlyStamp = String(body.hourlyStamp || "");
     const postalArea = String(body.postalArea || "");
-
-    if (!/^\d{10}$/.test(hourlyStamp)) {
-      return json({ error: "Invalid hourlyStamp." }, 400, corsOrigin);
-    }
 
     if (!/^\d{6}$/.test(postalArea)) {
       return json({ error: "Invalid postalArea." }, 400, corsOrigin);
     }
 
+    const hourlyStamp = getHourlyStamp();
     const encryptedLocation = await hmacSha256(
       env.COCONOW_SECRET,
       `${hourlyStamp}:${postalArea}`,

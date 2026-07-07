@@ -173,8 +173,7 @@ button:disabled {
   align-items: end;
 }
 
-.postal-panel[hidden],
-.actions[hidden] {
+.postal-panel[hidden] {
   display: none;
 }
 
@@ -279,5 +278,12 @@ button:disabled {
 
   .primary-share {
     grid-column: 1 / -1;
+  }
+
+  .share-button,
+  .copy-button {
+    min-height: 48px;
+    padding: 0 10px;
+    font-size: 0.92rem;
   }
 }
