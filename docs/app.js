@@ -20,13 +20,8 @@ function normalizeDigits(value) {
 function getPostalArea(value) {
   const digits = normalizeDigits(value);
 
-  if (digits.length === 6) {
-    return digits;
-  }
-
-  if (digits.length === 7) {
-    return digits.slice(0, 6);
-  }
+  if (digits.length === 6) return digits;
+  if (digits.length === 7) return digits.slice(0, 6);
 
   throw new Error("郵便番号は上6桁、または7桁で入力してください。");
 }
@@ -42,9 +37,7 @@ async function buildTag(postalArea) {
   const response = await fetch(TAG_API_ENDPOINT, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      postalArea,
-    }),
+    body: JSON.stringify({ postalArea }),
   });
 
   const result = await response.json().catch(() => ({}));
@@ -110,7 +103,7 @@ function ensureJapan(latitude, longitude) {
 
 function showIssuedTag(tag, postalArea, note) {
   latestTag = tag;
-  latestPostText = `${tag}\n\nCoCoNow-ココナ-`;
+  latestPostText = `${tag}\n${SHARE_PAGE_URL}`;
   tagOutput.textContent = tag;
   postalAreaInput.value = postalArea;
   postalPanel.hidden = false;
@@ -178,7 +171,7 @@ async function copyTag() {
   if (!latestTag) return;
 
   try {
-    await writeClipboard(latestTag, "タグをコピーしました。");
+    await writeClipboard(latestPostText, "タグとURLをコピーしました。");
   } catch {
     setMessage("コピーできませんでした。タグを選択してコピーしてください。");
   }
@@ -198,7 +191,7 @@ function openShareTarget(target) {
 
 async function nativeShareOrCopy(messageText) {
   if (navigator.share) {
-    await navigator.share({ text: latestPostText, url: SHARE_PAGE_URL });
+    await navigator.share({ text: latestPostText });
     return;
   }
 
@@ -210,12 +203,12 @@ async function sharePost(target) {
 
   try {
     if (target === "native") {
-      await nativeShareOrCopy("タグ付きポスト文をコピーしました。");
+      await nativeShareOrCopy("タグとURLをコピーしました。");
       return;
     }
 
     if (target === "instagram") {
-      await nativeShareOrCopy("Instagram用にタグ付き文をコピーしました。");
+      await nativeShareOrCopy("Instagram用にタグとURLをコピーしました。");
       window.open("https://www.instagram.com/", "_blank", "noopener,noreferrer");
       return;
     }

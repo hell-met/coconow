@@ -45,9 +45,25 @@ input {
   padding: 48px 0;
 }
 
+.landing-shell {
+  width: min(960px, calc(100% - 32px));
+  min-height: 100vh;
+  margin: 0 auto;
+  display: grid;
+  gap: 32px;
+  align-content: start;
+  padding: 48px 0;
+}
+
 .hero {
   display: grid;
   gap: 18px;
+}
+
+.landing-hero {
+  display: grid;
+  gap: 18px;
+  padding-top: 18px;
 }
 
 .eyebrow {
@@ -93,6 +109,67 @@ h1 small {
   color: var(--muted);
   font-size: 0.82rem;
   font-weight: 800;
+}
+
+.primary-link,
+.secondary-link,
+.text-link {
+  width: fit-content;
+  min-height: 44px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 8px;
+  padding: 0 16px;
+  color: inherit;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.primary-link {
+  min-height: 56px;
+  color: #fff;
+  background: linear-gradient(135deg, var(--green), var(--coral));
+  box-shadow: 0 15px 32px rgba(22, 134, 111, 0.25);
+}
+
+.secondary-link,
+.text-link {
+  border: 1px solid var(--line);
+  background: #fff;
+}
+
+.guide {
+  display: grid;
+  gap: 18px;
+  padding: 28px;
+  border: 1px solid rgba(216, 226, 224, 0.95);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.guide h2 {
+  margin: 0;
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  line-height: 1.25;
+}
+
+.scenario {
+  margin: 0;
+  color: var(--green-dark);
+  font-weight: 900;
+  line-height: 1.8;
+}
+
+.steps {
+  margin: 0;
+  padding-left: 1.35rem;
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+.steps li + li {
+  margin-top: 12px;
 }
 
 .generator {

@@ -105,6 +105,6 @@ export default {
       `${hourlyStamp}:${postalArea}`,
     );
 
-    return json({ tag: `#coconow${hourlyStamp}${encryptedLocation}` }, 200, corsOrigin);
+    return json({ tag: `#coconow${encryptedLocation}` }, 200, corsOrigin);
   },
 };
