@@ -248,36 +248,16 @@ h1 small {
 
 .final-card {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 14px;
-  justify-items: start;
-  align-items: center;
-  padding: 28px;
-  border: 3px solid var(--ink);
-  border-radius: 8px;
-  background:
-    radial-gradient(circle at 14% 30%, rgba(244, 198, 95, 0.5), transparent 22%),
-    radial-gradient(circle at 86% 26%, rgba(239, 107, 90, 0.24), transparent 22%),
-    #fff;
-  box-shadow: 8px 8px 0 rgba(21, 25, 29, 0.12);
-}
-
-.final-card span {
-  min-width: 52px;
-  min-height: 38px;
-  display: grid;
-  place-items: center;
-  border-radius: 999px;
-  color: #fff;
-  background: var(--ink);
-  font-size: 0.9rem;
-  font-weight: 900;
+  gap: 18px;
+  justify-items: center;
+  padding: 22px 12px 8px;
+  text-align: center;
 }
 
 .final-card p {
   margin: 0;
-  font-size: clamp(1.04rem, 3.8vw, 1.28rem);
-  line-height: 1.7;
+  font-size: clamp(1.25rem, 4.8vw, 1.8rem);
+  line-height: 1.45;
   font-weight: 900;
 }
 
@@ -662,14 +642,6 @@ button:disabled {
   }
 
   .panel-caption span {
-    width: fit-content;
-  }
-
-  .final-card {
-    grid-template-columns: 1fr;
-  }
-
-  .final-card span {
     width: fit-content;
   }
 
