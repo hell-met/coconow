@@ -201,14 +201,6 @@ h1 small {
   box-shadow: 8px 8px 0 rgba(21, 25, 29, 0.12);
 }
 
-.text-panel {
-  overflow: hidden;
-  border: 3px solid var(--ink);
-  border-radius: 8px;
-  background: #fff;
-  box-shadow: 8px 8px 0 rgba(21, 25, 29, 0.12);
-}
-
 .image-panel img {
   width: 100%;
   display: block;
@@ -252,10 +244,6 @@ h1 small {
   font-size: 0.82em;
   font-weight: 800;
   line-height: 1.75;
-}
-
-.text-panel .panel-caption {
-  border-bottom: 0;
 }
 
 .final-card {
