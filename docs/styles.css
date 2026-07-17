@@ -142,6 +142,8 @@ h1 small {
 }
 
 .guide-title-text {
+  display: inline-block;
+  padding-left: 2px;
   color: var(--green-dark);
   font-size: clamp(1.45rem, 4vw, 2.2rem);
   font-weight: 900;
@@ -155,13 +157,6 @@ h1 small {
   color: var(--muted);
   font-size: 1.05rem;
   line-height: 1.8;
-}
-
-.update-note {
-  margin: -8px 0 0;
-  color: var(--muted);
-  font-size: 0.82rem;
-  font-weight: 800;
 }
 
 .primary-link,
