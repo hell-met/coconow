@@ -55,6 +55,16 @@ input {
   padding: 48px 0;
 }
 
+.comic-shell {
+  width: min(1040px, calc(100% - 32px));
+  min-height: 100vh;
+  margin: 0 auto;
+  display: grid;
+  gap: 28px;
+  align-content: start;
+  padding: 40px 0 56px;
+}
+
 .hero {
   display: grid;
   gap: 18px;
@@ -64,6 +74,11 @@ input {
   display: grid;
   gap: 18px;
   padding-top: 18px;
+}
+
+.comic-head {
+  display: grid;
+  gap: 16px;
 }
 
 .eyebrow {
@@ -172,6 +187,202 @@ h1 small {
   margin-top: 12px;
 }
 
+.comic-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.comic-panel {
+  position: relative;
+  min-height: 280px;
+  display: grid;
+  gap: 14px;
+  align-content: center;
+  overflow: hidden;
+  padding: 24px;
+  border: 3px solid var(--ink);
+  border-radius: 8px;
+  background:
+    repeating-linear-gradient(
+      -18deg,
+      rgba(22, 134, 111, 0.07) 0,
+      rgba(22, 134, 111, 0.07) 7px,
+      transparent 7px,
+      transparent 16px
+    ),
+    #fff;
+  box-shadow: 8px 8px 0 rgba(21, 25, 29, 0.12);
+}
+
+.comic-panel.wide {
+  grid-column: 1 / -1;
+  min-height: 240px;
+}
+
+.panel-label {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  min-width: 42px;
+  min-height: 34px;
+  display: grid;
+  place-items: center;
+  padding: 0 10px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  color: #fff;
+  background: var(--coral);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.comic-character {
+  width: 96px;
+  height: 96px;
+  display: grid;
+  place-items: center;
+  justify-self: end;
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  color: #fff;
+  background: linear-gradient(135deg, var(--green), var(--coral));
+  font-size: 1.25rem;
+  font-weight: 900;
+  box-shadow: 5px 5px 0 rgba(21, 25, 29, 0.16);
+}
+
+.sub-character {
+  width: 82px;
+  height: 82px;
+  justify-self: start;
+  background: linear-gradient(135deg, var(--yellow), var(--green));
+}
+
+.speech {
+  position: relative;
+  margin: 0;
+  padding: 16px 18px;
+  border: 3px solid var(--ink);
+  border-radius: 8px;
+  background: #fff;
+  font-weight: 900;
+  line-height: 1.7;
+}
+
+.speech::after {
+  content: "";
+  position: absolute;
+  right: 28px;
+  bottom: -16px;
+  width: 24px;
+  height: 24px;
+  border-right: 3px solid var(--ink);
+  border-bottom: 3px solid var(--ink);
+  background: #fff;
+  transform: rotate(45deg);
+}
+
+.speech.big {
+  max-width: 620px;
+  font-size: clamp(1.15rem, 3vw, 1.8rem);
+}
+
+.caption {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.94rem;
+  font-weight: 800;
+  line-height: 1.7;
+}
+
+.phone-art,
+.post-card,
+.search-art {
+  width: min(100%, 300px);
+  min-height: 122px;
+  display: grid;
+  gap: 8px;
+  place-content: center;
+  justify-self: center;
+  border: 3px solid var(--ink);
+  border-radius: 8px;
+  background: var(--aqua);
+  box-shadow: 6px 6px 0 rgba(21, 25, 29, 0.12);
+  text-align: center;
+}
+
+.phone-art span {
+  font-size: 3rem;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.phone-art b,
+.post-card b,
+.search-art span {
+  font-weight: 900;
+}
+
+.post-card {
+  background: #fff;
+}
+
+.post-card span {
+  color: var(--green-dark);
+  font-weight: 900;
+}
+
+.search-art {
+  position: relative;
+  background: var(--yellow);
+}
+
+.search-art i {
+  width: 48px;
+  height: 48px;
+  justify-self: center;
+  border: 6px solid var(--ink);
+  border-radius: 50%;
+}
+
+.search-art i::after {
+  content: "";
+  position: absolute;
+  width: 34px;
+  height: 7px;
+  margin: 38px 0 0 -3px;
+  background: var(--ink);
+  transform: rotate(42deg);
+}
+
+.caution {
+  background:
+    repeating-linear-gradient(
+      18deg,
+      rgba(239, 107, 90, 0.09) 0,
+      rgba(239, 107, 90, 0.09) 8px,
+      transparent 8px,
+      transparent 17px
+    ),
+    #fff;
+}
+
+.impact {
+  margin: 0;
+  font-size: clamp(2rem, 7vw, 4rem);
+  line-height: 1.05;
+  font-weight: 900;
+}
+
+.finale {
+  justify-items: start;
+  background:
+    radial-gradient(circle at 14% 30%, rgba(244, 198, 95, 0.5), transparent 22%),
+    radial-gradient(circle at 86% 26%, rgba(239, 107, 90, 0.24), transparent 22%),
+    #fff;
+}
+
 .generator {
   display: grid;
   gap: 18px;
@@ -242,6 +453,17 @@ button:disabled {
   font-size: clamp(1rem, 2.4vw, 1.35rem);
   font-weight: 900;
   overflow-wrap: anywhere;
+}
+
+.tag-output.is-copyable {
+  cursor: pointer;
+  border-style: solid;
+}
+
+.tag-output.is-copyable:hover,
+.tag-output.is-copyable:focus {
+  box-shadow: 0 0 0 3px rgba(22, 134, 111, 0.18);
+  outline: none;
 }
 
 .tag-output span {
@@ -330,6 +552,14 @@ button:disabled {
     gap: 28px;
     align-items: start;
     padding: 32px 0;
+  }
+
+  .comic-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .comic-panel.wide {
+    grid-column: auto;
   }
 
   h1 span {

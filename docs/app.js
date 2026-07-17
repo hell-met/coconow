@@ -105,6 +105,10 @@ function showIssuedTag(tag, postalArea, note) {
   latestTag = tag;
   latestPostText = `${tag}\n${SHARE_PAGE_URL}`;
   tagOutput.textContent = tag;
+  tagOutput.classList.add("is-copyable");
+  tagOutput.setAttribute("tabindex", "0");
+  tagOutput.setAttribute("role", "button");
+  tagOutput.setAttribute("aria-label", "発行されたタグをコピー");
   postalAreaInput.value = postalArea;
   postalPanel.hidden = false;
   setShareEnabled(true);
@@ -177,6 +181,16 @@ async function copyTag() {
   }
 }
 
+async function copyIssuedTag() {
+  if (!latestTag) return;
+
+  try {
+    await writeClipboard(latestTag, "タグをコピーしました。");
+  } catch {
+    setMessage("コピーできませんでした。タグを選択してコピーしてください。");
+  }
+}
+
 function openShareTarget(target) {
   const encodedText = encodeURIComponent(latestPostText);
   const encodedUrl = encodeURIComponent(SHARE_PAGE_URL);
@@ -225,6 +239,13 @@ postalAreaInput.addEventListener("input", () => {
 issueButton.addEventListener("click", issueTag);
 reissueButton.addEventListener("click", reissueTag);
 copyButton.addEventListener("click", copyTag);
+tagOutput.addEventListener("click", copyIssuedTag);
+tagOutput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    copyIssuedTag();
+  }
+});
 shareButtons.forEach((button) => {
   button.addEventListener("click", () => sharePost(button.dataset.share));
 });

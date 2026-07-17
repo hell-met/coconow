@@ -7,45 +7,67 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <main class="landing-shell">
-      <section class="landing-hero" aria-labelledby="landing-title">
+    <main class="comic-shell">
+      <section class="comic-head" aria-labelledby="guide-title">
         <p class="eyebrow">日本限定リアルタイムハッシュタグ</p>
-        <h1 id="landing-title">
+        <h1 id="guide-title">
           <span>CoCoNow</span>
-          <small>ココナ</small>
+          <small>ココナの使い方</small>
         </h1>
         <p class="lead">同じ時間に同じ場所。リアルに会うためのハッシュタグ。</p>
-        <p class="update-note">毎時00分更新</p>
         <a class="primary-link" href="./index.html">#タグを発行する</a>
       </section>
 
-      <section class="guide" aria-labelledby="guide-title">
-        <h2 id="guide-title">CoCoNow-ココナ-の使い方</h2>
-        <p class="scenario">
-          今日ヒマだな～。誰でもいいから一緒に遊べる人近くにいないかな？
-        </p>
+      <section class="comic-grid" aria-label="CoCoNowの使い方">
+        <article class="comic-panel wide">
+          <div class="panel-label">SCENE</div>
+          <div class="comic-character main-character">ヒマ</div>
+          <p class="speech big">今日ヒマだな～。近くで一緒に遊べる人いないかな？</p>
+        </article>
 
-        <ol class="steps">
-          <li>
-            CoCoNow-ココナ-にアクセスして「#タグを発行」ボタンをタップ。1時間に1回更新の、場所を暗号化した#タグが発行されるよ。
-          </li>
-          <li>
-            SNSでハッシュタグと共に投稿しよう。例：「誰かあそぼ～ #○○○○…」
-          </li>
-          <li>
-            そのハッシュタグをクリックし、同じハッシュタグで投稿してる人がいないか探してみよう。
-          </li>
-          <li>
-            同じハッシュタグで投稿している人がいれば、いま近くにいる合図！連絡を送ってみよう。
-            タグを偽っている可能性もあるので、直接的な場所は明かさないように注意。相手も周辺にいる前提でやり取りしよう。
-            例：「近くのスタバにいます」までにして、どの店舗かまでは明かさない。
-          </li>
-          <li>
-            CoCoNow-ココナ-をきっかけに、運命の出会いがあるかも？？
-          </li>
-        </ol>
+        <article class="comic-panel">
+          <div class="panel-label">1</div>
+          <div class="phone-art">
+            <span>#</span>
+            <b>タグ発行</b>
+          </div>
+          <p class="speech">CoCoNowで「#タグを発行」をタップ。</p>
+          <p class="caption">1時間に1回更新。場所は暗号化されるよ。</p>
+        </article>
 
-        <a class="secondary-link" href="./index.html">発行ページへ</a>
+        <article class="comic-panel">
+          <div class="panel-label">2</div>
+          <div class="post-card">
+            <b>誰かあそぼ～</b>
+            <span>#○○○○...</span>
+          </div>
+          <p class="speech">SNSでハッシュタグと一緒に投稿しよう。</p>
+        </article>
+
+        <article class="comic-panel">
+          <div class="panel-label">3</div>
+          <div class="search-art">
+            <span>#○○○○...</span>
+            <i></i>
+          </div>
+          <p class="speech">タグをタップして、同じタグの投稿を探してみよう。</p>
+        </article>
+
+        <article class="comic-panel caution">
+          <div class="panel-label">4</div>
+          <div class="comic-character sub-character">近く</div>
+          <p class="speech">同じタグの人がいたら、いま近くにいる合図かも。</p>
+          <p class="caption">
+            でもタグを偽っている可能性もあるから、直接的な場所は明かさないでね。
+            「近くのスタバにいます」くらいまでにしよう。
+          </p>
+        </article>
+
+        <article class="comic-panel wide finale">
+          <div class="panel-label">5</div>
+          <p class="impact">運命の出会いがあるかも？？</p>
+          <a class="secondary-link" href="./index.html">発行ページへ</a>
+        </article>
       </section>
     </main>
   </body>
