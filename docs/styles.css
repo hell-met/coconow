@@ -201,6 +201,14 @@ h1 small {
   box-shadow: 8px 8px 0 rgba(21, 25, 29, 0.12);
 }
 
+.text-panel {
+  overflow: hidden;
+  border: 3px solid var(--ink);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 8px 8px 0 rgba(21, 25, 29, 0.12);
+}
+
 .image-panel img {
   width: 100%;
   display: block;
@@ -237,6 +245,19 @@ h1 small {
   line-height: 1.7;
 }
 
+.panel-caption small {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.82em;
+  font-weight: 800;
+  line-height: 1.75;
+}
+
+.text-panel .panel-caption {
+  border-bottom: 0;
+}
+
 .final-card {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
@@ -267,8 +288,8 @@ h1 small {
 
 .final-card p {
   margin: 0;
-  font-size: clamp(1.45rem, 5vw, 2.7rem);
-  line-height: 1.25;
+  font-size: clamp(1.04rem, 3.8vw, 1.28rem);
+  line-height: 1.7;
   font-weight: 900;
 }
 
