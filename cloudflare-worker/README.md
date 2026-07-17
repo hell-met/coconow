@@ -1,4 +1,4 @@
-# COCONOW Cloudflare Worker
+# CoCoNoW Cloudflare Worker
 
 GitHub Pages側に秘密を置かないため、タグ生成だけをCloudflare Workersで行います。
 

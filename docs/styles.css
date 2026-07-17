@@ -111,6 +111,38 @@ h1 small {
   font-weight: 900;
 }
 
+.brand-title {
+  width: min(100%, 440px);
+}
+
+.brand-title-guide {
+  width: min(100%, 300px);
+}
+
+.brand-logo {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.brand-logo-horizontal {
+  max-width: min(100%, 430px);
+}
+
+.brand-logo-stacked {
+  max-width: min(100%, 250px);
+}
+
+.brand-title-guide small {
+  width: fit-content;
+  margin-top: 4px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  color: var(--green-dark);
+  background: rgba(255, 255, 255, 0.72);
+  font-size: 1rem;
+}
+
 .lead {
   max-width: 29rem;
   margin: 0;
