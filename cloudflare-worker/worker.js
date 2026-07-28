@@ -1,6 +1,10 @@
-const DEFAULT_ALLOWED_ORIGIN = "https://hell-met.github.io";
+const DEFAULT_ALLOWED_ORIGINS = [
+  "https://coconow.jp",
+  "https://www.coconow.jp",
+  "https://hell-met.github.io",
+];
 
-function corsHeaders(origin = DEFAULT_ALLOWED_ORIGIN) {
+function corsHeaders(origin = DEFAULT_ALLOWED_ORIGINS[0]) {
   return {
     "Access-Control-Allow-Origin": origin,
     "Access-Control-Allow-Methods": "POST, OPTIONS",
@@ -10,7 +14,7 @@ function corsHeaders(origin = DEFAULT_ALLOWED_ORIGIN) {
   };
 }
 
-function json(data, status = 200, origin = DEFAULT_ALLOWED_ORIGIN) {
+function json(data, status = 200, origin = DEFAULT_ALLOWED_ORIGINS[0]) {
   return new Response(JSON.stringify(data), {
     status,
     headers: {
@@ -63,8 +67,13 @@ function getHourlyStamp() {
 
 function getCorsOrigin(request, env) {
   const requestOrigin = request.headers.get("Origin");
-  const allowedOrigin = env.ALLOWED_ORIGIN || DEFAULT_ALLOWED_ORIGIN;
-  return requestOrigin === allowedOrigin ? requestOrigin : allowedOrigin;
+  const allowedOrigins = (env.ALLOWED_ORIGINS || env.ALLOWED_ORIGIN || "")
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+  const origins = allowedOrigins.length ? allowedOrigins : DEFAULT_ALLOWED_ORIGINS;
+
+  return origins.includes(requestOrigin) ? requestOrigin : origins[0];
 }
 
 export default {

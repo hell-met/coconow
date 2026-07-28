@@ -14,7 +14,7 @@ GitHub Pages側に秘密を置かないため、タグ生成だけをCloudflare 
 
 ```text
 COCONOW_SECRET = 長くてランダムな秘密文字列
-ALLOWED_ORIGIN = https://hell-met.github.io
+ALLOWED_ORIGINS = https://coconow.jp,https://www.coconow.jp,https://hell-met.github.io
 ```
 
 `COCONOW_SECRET` はGitHubに書かないでください。英数字を40文字以上混ぜたものが無難です。
