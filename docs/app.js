@@ -9,7 +9,7 @@ const message = document.querySelector("#message");
 const shareButtons = document.querySelectorAll("[data-share]");
 
 const TAG_API_ENDPOINT = "https://coconow-tag-api.hell-m-m-m-mail.workers.dev";
-const SHARE_PAGE_URL = "https://hell-met.github.io/coconow/";
+const SHARE_PAGE_URL = "https://coconow.jp/";
 let latestTag = "";
 let latestPostText = "";
 
