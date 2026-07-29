@@ -9,7 +9,7 @@ const message = document.querySelector("#message");
 const shareButtons = document.querySelectorAll("[data-share]");
 
 const TAG_API_ENDPOINT = "https://coconow-tag-api.hell-m-m-m-mail.workers.dev";
-const SHARE_PAGE_URL = "https://coconow.jp/";
+const SHARE_PAGE_URL = "https://coconow.jp";
 let latestTag = "";
 let latestPostText = "";
 
@@ -103,7 +103,7 @@ function ensureJapan(latitude, longitude) {
 
 function showIssuedTag(tag, postalArea, note) {
   latestTag = tag;
-  latestPostText = `${tag}\n${SHARE_PAGE_URL}`;
+  latestPostText = `\n${tag}\n\n同じ時間に同じ場所、リアルに会うための日本限定ハッシュタグ\nCoCoNoW-ココナ-\n\n↓タグ発行はコチラ\n${SHARE_PAGE_URL}`;
   tagOutput.textContent = tag;
   tagOutput.classList.add("is-copyable");
   tagOutput.setAttribute("tabindex", "0");
